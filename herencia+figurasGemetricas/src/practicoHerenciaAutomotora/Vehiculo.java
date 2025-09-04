@@ -7,18 +7,18 @@ public abstract class Vehiculo {
     private String matricula;
     private String color;
     private int anio;
+    double precio;
     
-    public Vehiculo(String marca, String modelo, String matricula, String color, int anio){
+    public Vehiculo(String marca, String modelo, int precio, String matricula, String color, int anio){
         this.marca = marca;
         this.modelo = modelo;
+        this.precio = precio;
         this.matricula = matricula;
         this.color = color;
         this.anio = anio;
     }
 
-    public String devolverGama(){
-        
-    }
+    abstract String devolverGama();
     
     @Override
     public String toString() {

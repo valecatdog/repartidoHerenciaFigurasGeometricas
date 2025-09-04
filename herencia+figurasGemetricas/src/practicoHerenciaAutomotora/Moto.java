@@ -5,12 +5,25 @@ public class Moto extends Vehiculo{
     private double cilindrada;
     private boolean esElectrica;
      
-    public Moto(String marca, String modelo, String matricula, String color, int anio, double cilindrada, boolean esElectrica) {
-        super(marca, modelo, matricula, color, anio);
+    public Moto(String marca, String modelo, int precio, String matricula, String color, int anio, double cilindrada, boolean esElectrica) {
+        super(marca, modelo, precio, matricula, color, anio);
         this.cilindrada = cilindrada;
         this.esElectrica = esElectrica;
     }
 
+    @Override
+    String devolverGama(){
+        String gama;
+        
+        if(this.precio >= 3000){
+            gama = "alta";
+        }else{
+            gama = "baja";
+        }
+        
+        return gama;
+    }
+    
     @Override
     public String toString() {
         return super.toString()+"Moto{" + "cilindrada=" + cilindrada + ", esElectrica=" + esElectrica + '}';
