@@ -6,7 +6,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         double base;
         double altura;
-        double lado1;
+        double lado1;   //
         double lado2;
         double lado3;
         Figura[] figuras = new Figura[5];
