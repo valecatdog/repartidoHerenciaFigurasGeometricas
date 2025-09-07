@@ -24,14 +24,14 @@ public class Instituto {
     }
     
     public ArrayList<Estudiante> alumnosHabilitados(){
-        ArrayList <Estudiante> habilitados = new ArrayList<>();
+        ArrayList <Estudiante> estudiantesHabilitados = new ArrayList<>();
         for (Estudiante e : listaEstudiantes){
             if(e.isHabilitado()){
-                habilitados.add(e);
+                estudiantesHabilitados.add(e);
             }
         }
         
-        return habilitados;
+        return estudiantesHabilitados;
     }
     
     public ArrayList<Docente> docentesAltaDedicacion(){
@@ -43,6 +43,20 @@ public class Instituto {
         }
         
         return dedicados;
+    }
+    
+    public boolean cierreNocturno(){
+        ArrayList<Administrativo> noCierreNocturno = new ArrayList<>();
+        boolean noCierreNocturnoBoolean;
+        
+        for (Administrativo a : listaAdministrativos){
+            if(!a.getTurno().equalsIgnoreCase("nocturno")){
+                noCierreNocturno.add(a);
+            }
+        }
+        noCierreNocturnoBoolean = !noCierreNocturno.isEmpty();
+        
+        return noCierreNocturnoBoolean;
     }
     
     

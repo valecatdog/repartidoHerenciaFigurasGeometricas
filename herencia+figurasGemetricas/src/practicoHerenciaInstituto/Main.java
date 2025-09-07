@@ -24,6 +24,8 @@ public class Main {
         esiBuceo.agregar(admin1);
         Administrativo admin2 =new  Administrativo ("Clara", "Dehuevo", 18938734, "30/05/2000", "Nocturno");
         esiBuceo.agregar(admin2);
+        
+        System.out.println(esiBuceo.cierreNocturno());
     }
     
     /*
