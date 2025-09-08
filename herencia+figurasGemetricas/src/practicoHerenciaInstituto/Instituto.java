@@ -6,9 +6,42 @@ public class Instituto {
     private ArrayList <Estudiante> listaEstudiantes = new ArrayList<>();
     private ArrayList <Docente> listaDocentes = new ArrayList<>();
     private ArrayList <Administrativo> listaAdministrativos = new ArrayList<>();
+    private String nombre;
 
-    public Instituto() {
-        
+    public Instituto(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ArrayList<Estudiante> getListaEstudiantes() {
+        return listaEstudiantes;
+    }
+
+    public void setListaEstudiantes(ArrayList<Estudiante> listaEstudiantes) {
+        this.listaEstudiantes = listaEstudiantes;
+    }
+
+    public ArrayList<Docente> getListaDocentes() {
+        return listaDocentes;
+    }
+
+    public void setListaDocentes(ArrayList<Docente> listaDocentes) {
+        this.listaDocentes = listaDocentes;
+    }
+
+    public ArrayList<Administrativo> getListaAdministrativos() {
+        return listaAdministrativos;
+    }
+
+    public void setListaAdministrativos(ArrayList<Administrativo> listaAdministrativos) {
+        this.listaAdministrativos = listaAdministrativos;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     public void agregar(Estudiante est){
@@ -57,6 +90,11 @@ public class Instituto {
         noCierreNocturnoBoolean = !noCierreNocturno.isEmpty();
         
         return noCierreNocturnoBoolean;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
     
     

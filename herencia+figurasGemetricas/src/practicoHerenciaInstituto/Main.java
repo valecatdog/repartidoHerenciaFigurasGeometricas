@@ -3,7 +3,7 @@ package practicoHerenciaInstituto;
 public class Main {
     public static void main(String[] args) {
         
-        Instituto esiBuceo = new Instituto();
+        Instituto esiBuceo = new Instituto("esiBuceo");
         
     
         Estudiante estudiantel = new Estudiante("Juan", "Lopez", 48461226, "30/05/2000", true);
