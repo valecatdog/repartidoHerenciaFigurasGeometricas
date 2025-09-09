@@ -8,14 +8,14 @@ package practicoHerenciaInstitutoInterfaz;
  *
  * @author 57815971
  */
-public class Principal extends javax.swing.JFrame {
+public class Inicio extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Principal.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inicio.class.getName());
 
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public Inicio() {
         initComponents();
     }
 
@@ -80,7 +80,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Institutos instituto = new Institutos();
+        ManipularInstitutos instituto = new ManipularInstitutos();
         instituto.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -107,7 +107,7 @@ public class Principal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Principal().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Inicio().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

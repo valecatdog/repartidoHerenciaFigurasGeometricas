@@ -5,10 +5,10 @@
 package practicoHerenciaInstitutoInterfaz;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import practicoHerenciaInstituto.Instituto;
-import practicoHerenciaInstituto.Estudiante;
-import practicoHerenciaInstituto.Docente;
-import practicoHerenciaInstituto.Administrativo;
+import practicoHerenciaInstitutoLogica.Instituto;
+import practicoHerenciaInstitutoLogica.Estudiante;
+import practicoHerenciaInstitutoLogica.Docente;
+import practicoHerenciaInstitutoLogica.Administrativo;
 /**
  *
  * @author 57815971
@@ -18,9 +18,11 @@ public class SeleccionInstituto extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SeleccionInstituto.class.getName());
     private Instituto instituto;
     private DefaultListModel modeloEst;
-    private DefaultListModel modeloProf;
+    private DefaultListModel modeloDoc;
     private DefaultListModel modeloAdmin;
     
+    //FALTAN LOS BOTODES DE EDITAR PERSONA, PERO TENGO QUE VER SI PUEDO HACER HERENCIA DE UNA VENTANA DE ESTA PORUQE SNO TODOS IGUALES (casi)
+    //METODO PARA PEDIR LOS DATOS DE TODOS
     /**
      * Creates new form SeleccionInstituto
      */
@@ -28,17 +30,36 @@ public class SeleccionInstituto extends javax.swing.JFrame {
         initComponents();
         this.instituto = i;
         lblInstituto.setText(instituto.getNombre());
+        
         modeloEst = new DefaultListModel();
+        jListEstudiantes.setModel(modeloEst);
         for (Estudiante e : instituto.getListaEstudiantes()){
             int ci = e.getCedula();
+            String apellido = e.getApellido();
+            String nombre = e.getNombre();
+            String estudiante = ci+", "+apellido+" "+nombre;
+            modeloEst.addElement(estudiante);
         }
-        jListEstudiantes.setModel(modeloEst);
         
-        modeloProf = new DefaultListModel();
-        jListProfesores.setModel(modeloProf);
+        modeloDoc = new DefaultListModel();
+        jListDocentes.setModel(modeloDoc);
+        for (Docente d : instituto.getListaDocentes()){
+            int ci = d.getCedula();
+            String apellido = d.getApellido();
+            String nombre = d.getNombre();
+            String docente = ci+", "+apellido+" "+nombre;
+            modeloDoc.addElement(docente);
+        }
         
         modeloAdmin = new DefaultListModel();
         jListAdministrativos.setModel(modeloAdmin);
+        for (Administrativo a : instituto.getListaAdministrativos()){
+            int ci = a.getCedula();
+            String apellido = a.getApellido();
+            String nombre = a.getNombre();
+            String administrativo = ci+", "+apellido+" "+nombre;
+            modeloAdmin.addElement(administrativo);
+        }
     }
 
     /**
@@ -53,7 +74,7 @@ public class SeleccionInstituto extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         lblInstituto = new javax.swing.JLabel();
-        btnSeleccionarProf = new javax.swing.JButton();
+        btnSeleccionarDoc = new javax.swing.JButton();
         btnSeleccionarEst = new javax.swing.JButton();
         btnSeleccionarAdmin = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
@@ -67,7 +88,10 @@ public class SeleccionInstituto extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jListAdministrativos = new javax.swing.JList<>();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jListProfesores = new javax.swing.JList<>();
+        jListDocentes = new javax.swing.JList<>();
+        btnAgregarEst = new javax.swing.JButton();
+        btnAgregarDoc = new javax.swing.JButton();
+        btnAgregarAdmin = new javax.swing.JButton();
 
         jScrollPane4.setViewportView(jTree1);
 
@@ -75,11 +99,26 @@ public class SeleccionInstituto extends javax.swing.JFrame {
 
         lblInstituto.setText("Nombre");
 
-        btnSeleccionarProf.setText("jButton1");
+        btnSeleccionarDoc.setText("Seleccionar");
+        btnSeleccionarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarDocActionPerformed(evt);
+            }
+        });
 
-        btnSeleccionarEst.setText("jButton2");
+        btnSeleccionarEst.setText("Seleccionar");
+        btnSeleccionarEst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarEstActionPerformed(evt);
+            }
+        });
 
-        btnSeleccionarAdmin.setText("jButton3");
+        btnSeleccionarAdmin.setText("Seleccionar");
+        btnSeleccionarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarAdminActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -113,113 +152,129 @@ public class SeleccionInstituto extends javax.swing.JFrame {
             }
         });
 
-        jListEstudiantes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane5.setViewportView(jListEstudiantes);
 
-        jListAdministrativos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane6.setViewportView(jListAdministrativos);
 
-        jListProfesores.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jScrollPane7.setViewportView(jListDocentes);
+
+        btnAgregarEst.setText("+");
+        btnAgregarEst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEstActionPerformed(evt);
+            }
         });
-        jScrollPane7.setViewportView(jListProfesores);
+
+        btnAgregarDoc.setText("+");
+
+        btnAgregarAdmin.setText("+");
+        btnAgregarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarAdminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(btnEstHabilidados)
-                .addGap(18, 18, 18)
-                .addComponent(btnProfDedicados)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCierreNocturno)
-                .addGap(50, 50, 50))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnVolver)
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel1)
-                        .addGap(47, 47, 47)
-                        .addComponent(lblInstituto))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(btnSeleccionarEst, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap()
+                                .addComponent(btnAgregarEst)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAgregarDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSeleccionarProf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                        .addComponent(btnSeleccionarAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(178, 178, 178)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(191, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnAgregarAdmin))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(139, 139, 139)
+                            .addComponent(btnSeleccionarDoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnVolver)
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(lblInstituto))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(405, 405, 405))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btnEstHabilidados)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnProfDedicados)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnCierreNocturno))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnSeleccionarEst)
+                        .addGap(169, 169, 169)
+                        .addComponent(btnSeleccionarAdmin)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVolver)
+                            .addComponent(jLabel1)
+                            .addComponent(lblInstituto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSeleccionarDoc)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(btnSeleccionarProf))
+                                .addGap(66, 66, 66)
+                                .addComponent(btnAgregarDoc))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnVolver)
-                                    .addComponent(jLabel1)
-                                    .addComponent(lblInstituto))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(btnSeleccionarEst)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSeleccionarAdmin)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(btnSeleccionarEst))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(57, 57, 57)
+                                                .addComponent(btnAgregarEst)
+                                                .addGap(34, 34, 34)
+                                                .addComponent(jLabel3))
+                                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(46, 46, 46)
-                                        .addComponent(btnSeleccionarAdmin))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                                        .addGap(51, 51, 51)
+                                        .addComponent(btnAgregarAdmin)))))
                         .addGap(26, 26, 26)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEstHabilidados)
                     .addComponent(btnProfDedicados)
                     .addComponent(btnCierreNocturno))
                 .addGap(21, 21, 21))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(61, 61, 61)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(69, Short.MAX_VALUE)))
         );
 
         pack();
@@ -231,7 +286,7 @@ public class SeleccionInstituto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCierreNocturnoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        Institutos institutos = new Institutos();
+        ManipularInstitutos institutos = new ManipularInstitutos();
         institutos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -243,6 +298,34 @@ public class SeleccionInstituto extends javax.swing.JFrame {
     private void btnProfDedicadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfDedicadosActionPerformed
     JOptionPane.showMessageDialog(this, instituto.docentesAltaDedicacion());
     }//GEN-LAST:event_btnProfDedicadosActionPerformed
+
+    private void btnSeleccionarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSeleccionarAdminActionPerformed
+
+    private void btnSeleccionarEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEstActionPerformed
+        
+    }//GEN-LAST:event_btnSeleccionarEstActionPerformed
+
+    private void btnAgregarEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEstActionPerformed
+        IngresarEstudiante ingresarEstudiante = new IngresarEstudiante(instituto);
+        ingresarEstudiante.setVisible(true);
+ 
+        Estudiante e = instituto.getListaEstudiantes().getLast();
+        int ci = e.getCedula();
+        String apellido = e.getApellido();
+        String nombre = e.getNombre();
+        String estudiante = ci+", "+apellido+" "+nombre;
+        modeloEst.addElement(estudiante);
+    }//GEN-LAST:event_btnAgregarEstActionPerformed
+
+    private void btnAgregarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarAdminActionPerformed
+
+    private void btnSeleccionarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarDocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSeleccionarDocActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,18 +354,21 @@ public class SeleccionInstituto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarAdmin;
+    private javax.swing.JButton btnAgregarDoc;
+    private javax.swing.JButton btnAgregarEst;
     private javax.swing.JButton btnCierreNocturno;
     private javax.swing.JButton btnEstHabilidados;
     private javax.swing.JButton btnProfDedicados;
     private javax.swing.JButton btnSeleccionarAdmin;
+    private javax.swing.JButton btnSeleccionarDoc;
     private javax.swing.JButton btnSeleccionarEst;
-    private javax.swing.JButton btnSeleccionarProf;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jListAdministrativos;
+    private javax.swing.JList<String> jListDocentes;
     private javax.swing.JList<String> jListEstudiantes;
-    private javax.swing.JList<String> jListProfesores;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;

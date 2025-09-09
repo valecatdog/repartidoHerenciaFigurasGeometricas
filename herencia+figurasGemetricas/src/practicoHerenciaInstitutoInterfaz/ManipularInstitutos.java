@@ -6,22 +6,27 @@ package practicoHerenciaInstitutoInterfaz;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import practicoHerenciaInstituto.Instituto;
+import practicoHerenciaInstitutoLogica.Instituto;
 
 /**
  *
  * @author 57815971
  */
-public class Institutos extends javax.swing.JFrame {
+
+//HACER QUE SE CARGUEN LOS INSTITUTOS CUALDO VOLVES A ESTA VENTANA
+
+public class ManipularInstitutos extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Institutos.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ManipularInstitutos.class.getName());
     private DefaultListModel modelo; 
-    private ArrayList <Instituto> institutos;
-    
+    private ArrayList <Instituto> institutos; 
+   
     /**
      * Creates new form Institutos
      */
-    public Institutos() {
+    
+    //NO SE CARGAN LOS INSTITUTOS CUANDO VOLVES, ARREGLAR ESO
+    public ManipularInstitutos() {
         initComponents();
         modelo = new DefaultListModel();
         jListInstitutos.setModel(modelo);
@@ -69,11 +74,7 @@ public class Institutos extends javax.swing.JFrame {
 
         jLabel3.setText("Opciones");
 
-        jListInstitutos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jListInstitutos.setToolTipText("");
         jScrollPane1.setViewportView(jListInstitutos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -94,11 +95,11 @@ public class Institutos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(88, 88, 88))))
+                        .addGap(88, 88, 88))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,10 +133,20 @@ public class Institutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int posicion = jListInstitutos.getSelectedIndex();
-        Instituto instituto = institutos.get(posicion);
-        SeleccionInstituto seleccionInstituto = new SeleccionInstituto(instituto);
-        seleccionInstituto.setVisible(true);
+        if(!modelo.isEmpty()){
+            int posicion = jListInstitutos.getSelectedIndex();
+            if (posicion != -1){
+                Instituto instituto = institutos.get(posicion);
+                SeleccionInstituto seleccionInstituto = new SeleccionInstituto(instituto);
+                seleccionInstituto.setVisible(true); 
+            }else{
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un instituto para utilizar esta opcion");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe crear un instituto para utilizar esta opcion");
+        }
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -160,7 +171,7 @@ public class Institutos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Institutos().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new ManipularInstitutos().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
