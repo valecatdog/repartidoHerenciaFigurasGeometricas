@@ -13,14 +13,23 @@ import practicoHerenciaInstitutoLogica.Instituto;
 public class IngresarEstudiante extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IngresarEstudiante.class.getName());
-    Instituto i = new Instituto("i");
+    Instituto i;
+    SeleccionInstituto ventanaSeleccion;
     /**
      * Creates new form IngresarPersona
+     * @param i
+     * @param ventanaSeleccion
      */
-    public IngresarEstudiante(Instituto i) {
+    
+    //en vez de trabajar con un i, trabajo directamente con la otra ventana y la setteo visible                                                                              
+    public IngresarEstudiante(Instituto i, SeleccionInstituto ventanaSeleccion) {
         initComponents();
+        this.i = i;
+        this.ventanaSeleccion = ventanaSeleccion;
+        
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -183,13 +192,16 @@ public class IngresarEstudiante extends javax.swing.JFrame {
             String apellido = txtFieldApellido.getText();
             int ci = Integer.parseInt(txtFieldCedula.getText());
             String fnac = txtFieldFnac.getText();
-            boolean habilitado = rbtnSi.isSelected();
+            boolean habilitad = rbtnSi.isSelected();
             
-            Estudiante estudiante = new Estudiante(nombre, apellido, ci, fnac, habilitado);  
+            Estudiante estudiante = new Estudiante(nombre, apellido, ci, fnac, habilitad);  
             JOptionPane.showMessageDialog(this, "El estudiante fue agregado correctamente");
             
+            SeleccionInstituto seleccionInstituto = new SeleccionInstituto(i);
+            seleccionInstituto.setVisible(true);
             i.agregar(estudiante);
-            
+            System.out.println(i);
+            ventanaSeleccion.actualizarModEst();
             this.dispose(); 
         }
     
@@ -213,6 +225,8 @@ public class IngresarEstudiante extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         Instituto i = new Instituto("i");
+        SeleccionInstituto ventanaSeleccion = new SeleccionInstituto(i);
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -231,7 +245,7 @@ public class IngresarEstudiante extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new IngresarEstudiante(i).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new IngresarEstudiante(i, ventanaSeleccion).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

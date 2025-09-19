@@ -80,7 +80,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ManipularInstitutos instituto = new ManipularInstitutos();
+        CrearInstitutos instituto = new CrearInstitutos();
         instituto.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

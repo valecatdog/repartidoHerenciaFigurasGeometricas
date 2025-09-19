@@ -1,4 +1,4 @@
-package practicoHerenciaInstituto;
+package practicoHerenciaInstitutoLogica;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class Instituto {
     private ArrayList <Estudiante> listaEstudiantes = new ArrayList<>();
     private ArrayList <Docente> listaDocentes = new ArrayList<>();
     private ArrayList <Administrativo> listaAdministrativos = new ArrayList<>();
-    private String nombre;
+    private String nombre;//lo necesito para la interfaz grafica
 
     public Instituto(String nombre) {
         this.nombre = nombre;

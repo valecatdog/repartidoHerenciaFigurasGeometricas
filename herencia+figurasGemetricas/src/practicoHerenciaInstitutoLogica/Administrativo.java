@@ -1,4 +1,4 @@
-package practicoHerenciaInstituto;
+package practicoHerenciaInstitutoLogica;
 
 public class Administrativo extends Persona{
     private String turno;

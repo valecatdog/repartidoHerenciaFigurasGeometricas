@@ -1,4 +1,4 @@
-package practicoHerenciaInstituto;
+package practicoHerenciaInstitutoLogica;
 
 public class Estudiante extends Persona{
     private boolean habilitado; 

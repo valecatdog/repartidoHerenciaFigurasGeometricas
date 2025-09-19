@@ -15,9 +15,9 @@ import practicoHerenciaInstitutoLogica.Instituto;
 
 //HACER QUE SE CARGUEN LOS INSTITUTOS CUALDO VOLVES A ESTA VENTANA
 
-public class ManipularInstitutos extends javax.swing.JFrame {
+public class CrearInstitutos extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ManipularInstitutos.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearInstitutos.class.getName());
     private DefaultListModel modelo; 
     private ArrayList <Instituto> institutos; 
    
@@ -26,7 +26,7 @@ public class ManipularInstitutos extends javax.swing.JFrame {
      */
     
     //NO SE CARGAN LOS INSTITUTOS CUANDO VOLVES, ARREGLAR ESO
-    public ManipularInstitutos() {
+    public CrearInstitutos() {
         initComponents();
         modelo = new DefaultListModel();
         jListInstitutos.setModel(modelo);
@@ -139,6 +139,7 @@ public class ManipularInstitutos extends javax.swing.JFrame {
                 Instituto instituto = institutos.get(posicion);
                 SeleccionInstituto seleccionInstituto = new SeleccionInstituto(instituto);
                 seleccionInstituto.setVisible(true); 
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "Debe seleccionar un instituto para utilizar esta opcion");
             }
@@ -171,7 +172,7 @@ public class ManipularInstitutos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ManipularInstitutos().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new CrearInstitutos().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

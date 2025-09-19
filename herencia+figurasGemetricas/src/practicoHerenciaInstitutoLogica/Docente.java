@@ -1,4 +1,4 @@
-package practicoHerenciaInstituto;
+package practicoHerenciaInstitutoLogica;
 
 public class Docente extends Persona{
     private int cantHoras;
